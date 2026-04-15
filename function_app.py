@@ -3,13 +3,17 @@ import logging, json
 from get_ai_response import GETGENERATEDRESPONSE
 from get_top_chunks import GETTOPCHUNKS
 from urllib.parse import urlparse
-from preview_file import PREVIEWFILES
+
 
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
 @app.route(route="get_case_info")
 def get_case_info(req: func.HttpRequest) -> func.HttpResponse:
 
+    try:
+        from preview_file import PREVIEWFILES
+    except Exception as e:
+        logging.error(f'Failed to open the file preview file')
     try:
     #get user_query related 
         query = req.get_json()
@@ -148,6 +152,7 @@ def get_case_info(req: func.HttpRequest) -> func.HttpResponse:
             get_link = get_preview_link.get_blob_sas_url(citations)
         except Exception as e:
             logging.error(f'Failed to get the citations')
+            get_link = 'No File to Preview'
             
                     
 
