@@ -1,7 +1,6 @@
 import azure.functions as func
 import logging, json
-from get_ai_response import GETGENERATEDRESPONSE
-from get_top_chunks import GETTOPCHUNKS
+
 from urllib.parse import urlparse
 
 
@@ -13,7 +12,18 @@ def get_case_info(req: func.HttpRequest) -> func.HttpResponse:
     try:
         from preview_file import PREVIEWFILES
     except Exception as e:
-        logging.error(f'Failed to open the file preview file')
+        logging.error(f'Failed to open the file preview file due to : {e}')
+        
+    try:
+        from get_ai_response import GETGENERATEDRESPONSE
+    except Exception as e:
+        logging.error(f'Failed to open the ai response  file : {e}')
+        
+    try:
+        from get_top_chunks import GETTOPCHUNKS
+    except Exception as e:
+        logging.error(f'Failed to open the vector   file: {e}')
+        
     try:
     #get user_query related 
         query = req.get_json()
