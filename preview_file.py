@@ -9,7 +9,7 @@ from urllib.parse import quote
 import mimetypes
 class PREVIEWFILES:
     """ 
-    
+    class to preview the files for 5 minutes
     
     """
 
