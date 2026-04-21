@@ -13,7 +13,7 @@ from typing import Optional, Any
 
 class GETGENERATEDRESPONSE:
     """
-    
+    get ai response for user query
     """
     def __init__(self):
         self.keyvault_name = os.getenv('keyvault_url')
